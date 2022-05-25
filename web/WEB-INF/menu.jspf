@@ -1,0 +1,65 @@
+<ul id="MenuBar1" class="MenuBarHorizontal">
+	<li><a href="#" class="MenuBarItemSubmenu">Autores</a>
+		<ul>
+			<c:if test="<%=request.isUserInRole("administrativos")%>">
+				<li><a
+					href="${pageContext.request.contextPath}/admin/altaautor.jsp">Nuevo
+						Autor </a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/admin/modificaautor.jsp">Modifica
+						Autor </a></li>
+			</c:if>
+				<li><a
+					href="${pageContext.request.contextPath}/controller?operacion=listarAutores">Listado
+						de Autores</a></li>
+			<c:if test="<%=request.isUserInRole("socios")%>">
+				<li><a
+					href="${pageContext.request.contextPath}/controllersocio?operacion=listarAutores">Listado
+						de Autores</a></li>
+			</c:if>		
+		</ul>
+	</li>
+        <li><a href="#" class="MenuBarItemSubmenu">Libro</a>
+		<ul>
+			<c:if test="<%=request.isUserInRole("administrativos")%>">
+				<li><a
+					href="${pageContext.request.contextPath}/admin/registroautomaticolibro.jsp">Nuevo
+						Libro </a></li>
+			</c:if>	
+		</ul>
+	</li>
+        <li><a href="#" class="MenuBarItemSubmenu">Prestamo</a>
+		<ul>
+			<c:if test="<%=request.isUserInRole("administrativos")%>">
+				<li><a
+					href="${pageContext.request.contextPath}/admin/altaprestamo.jsp">Nuevo
+						Préstamo </a></li>
+                                <li><a
+					href="${pageContext.request.contextPath}/admin/devolucionejemplar.jsp">Nueva
+						Devolucion </a></li>
+			</c:if>	
+                        <c:if test="<%=request.isUserInRole("socios")%>">
+				<li><a
+					href="${pageContext.request.contextPath}/socios/altapeticion.jsp">Hacer Peticion</a></li>
+			</c:if>	
+		</ul>
+	</li>
+	<li><a class="MenuBarItemSubmenu" href="#">Sesion</a>
+		<ul>
+			<li><a
+				href="${pageContext.request.contextPath}/controller?operacion=logout">Logout</a></li>
+		</ul>
+	</li>
+	<li><a class="MenuBarItemSubmenu" href="#">Test</a>
+		<ul>
+			<li><a
+				href="${pageContext.request.contextPath}/controller?operacion=testConexion">Test Conexión</a></li>
+		</ul>
+	</li>
+</ul>
+<script type="text/javascript">
+	var MenuBar1 = new Spry.Widget.MenuBar("MenuBar1", {
+		imgDown : "/biblioteca-web/resources/img/SpryMenuBarDownHover.gif",
+		imgRight : "/Biblioteca/resources/img/SpryMenuBarRightHover.gif"
+	});
+</script>
