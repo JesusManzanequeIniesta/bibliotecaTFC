@@ -35,7 +35,7 @@
 			<form name="frmAutor" method="get"
 				action="${pageContext.request.contextPath}/controller">
 				<fieldset id="datosAutor">
-					<legend><img src="resources/img/azarquiel.gif">&nbsp;Modifica Autor</legend>
+					<legend><img src="${pageContext.request.contextPath}/resources/img/azarquiel.gif">&nbsp;Modifica Autor</legend>
 					<div class="etiquetas">
 						<label for="nombre">Nuevo nombre:</label>
 					</div>

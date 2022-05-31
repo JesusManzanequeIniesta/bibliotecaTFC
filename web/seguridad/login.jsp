@@ -13,7 +13,7 @@
      <div id="formLogin" class="formulariogeneral">		
 		<form action="j_security_check" method="POST">
 			<fieldset id="datosAutor">
-                   <legend><img src="../resources/img/azarquiel.gif">&nbsp;Introduzca sus datos de usuario</legend>
+                   <legend><img src="${pageContext.request.contextPath}/resources/img/azarquiel.gif">&nbsp;Introduzca sus datos de usuario</legend>
                    	<div class="etiquetas">
 						<label for="j_username">Usuario:</label>
 					</div>

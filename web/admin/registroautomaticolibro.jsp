@@ -44,7 +44,7 @@
 			<form name="formRegistroAutomaticoLibro" method="get"
 				action="${pageContext.request.contextPath}/controlleradmin">
 				<fieldset id="datosLibro">
-					<legend><img src="resources/img/azarquiel.gif">&nbsp;Alta Libro</legend>
+					<legend><img src="${pageContext.request.contextPath}/resources/img/azarquiel.gif">&nbsp;Alta Libro</legend>
 					<div class="etiquetas">
 						<label for="isbn">ISBN:</label>
 					</div>

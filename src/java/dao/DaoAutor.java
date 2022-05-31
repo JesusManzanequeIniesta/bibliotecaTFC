@@ -66,5 +66,17 @@ public class DaoAutor {
         }
         return autor;
     }
+    public List findByNombreLike(String nombre) throws Exception{
+        List<Autor> listAutor = null;
+        try{
+            System.out.println(dao.getEm());
+            listAutor = dao.getEm().createNamedQuery("Autor.findByNombreLike", Autor.class)
+                               .setParameter("nombre", nombre+"%")
+                               .getResultList();
+        } catch (Exception ex){
+            throw ex;
+        }
+        return listAutor;
+    }
     
 }

@@ -12,10 +12,14 @@
 				<li><a
 					href="${pageContext.request.contextPath}/controller?operacion=listarAutores">Listado
 						de Autores</a></li>
+                                <li><a
+					href="${pageContext.request.contextPath}/socios/busquedaautor.jsp">Buscar Autor</a></li>
 			<c:if test="<%=request.isUserInRole("socios")%>">
 				<li><a
 					href="${pageContext.request.contextPath}/controllersocio?operacion=listarAutores">Listado
 						de Autores</a></li>
+                                <li><a
+					href="${pageContext.request.contextPath}/socios/busquedaautor.jsp">Buscar Autor</a></li>
 			</c:if>		
 		</ul>
 	</li>
@@ -25,6 +29,12 @@
 				<li><a
 					href="${pageContext.request.contextPath}/admin/registroautomaticolibro.jsp">Nuevo
 						Libro </a></li>
+                                <li><a
+					href="${pageContext.request.contextPath}/socios/busquedalibro.jsp">Buscar Libro</a></li>
+			</c:if>	
+                        <c:if test="<%=request.isUserInRole("socios")%>">
+				<li><a
+					href="${pageContext.request.contextPath}/socios/busquedalibro.jsp">Buscar Libro</a></li>
 			</c:if>	
 		</ul>
 	</li>
@@ -37,6 +47,8 @@
                                 <li><a
 					href="${pageContext.request.contextPath}/admin/devolucionejemplar.jsp">Nueva
 						Devolucion </a></li>
+                                <li><a
+					href="${pageContext.request.contextPath}/socios/altapeticion.jsp">Hacer Peticion</a></li>
 			</c:if>	
                         <c:if test="<%=request.isUserInRole("socios")%>">
 				<li><a
@@ -50,16 +62,10 @@
 				href="${pageContext.request.contextPath}/controller?operacion=logout">Logout</a></li>
 		</ul>
 	</li>
-	<li><a class="MenuBarItemSubmenu" href="#">Test</a>
-		<ul>
-			<li><a
-				href="${pageContext.request.contextPath}/controller?operacion=testConexion">Test Conexión</a></li>
-		</ul>
-	</li>
 </ul>
 <script type="text/javascript">
 	var MenuBar1 = new Spry.Widget.MenuBar("MenuBar1", {
-		imgDown : "/biblioteca-web/resources/img/SpryMenuBarDownHover.gif",
-		imgRight : "/Biblioteca/resources/img/SpryMenuBarRightHover.gif"
+		imgDown : "/biblioteca/resources/img/SpryMenuBarDownHover.gif",
+		imgRight : "/biblioteca/resources/img/SpryMenuBarRightHover.gif"
 	});
 </script>

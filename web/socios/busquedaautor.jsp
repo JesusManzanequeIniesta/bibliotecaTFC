@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title> Alta de Autor </title>
+<title> Busqueda Autor </title>
 <jsp:directive.include file="../includes/includefile.jspf" />
 </head>
 <body>
@@ -23,17 +23,9 @@
 				</p>
 			</div>
 		</c:if>
-		<c:if test="${confirmaroperacion != null}">
-			<div id="divconfirmacion">
-				<p>
-					<strong><c:out value="Mensaje" /></strong> <br>
-					<c:out value="${confirmaroperacion}" />
-				</p>
-			</div>
-		</c:if>
 		<div id="formAutor" class="formulariogeneral">
 			<form name="frmAutor" method="get"
-				action="${pageContext.request.contextPath}/controlleradmin">
+				action="${pageContext.request.contextPath}/controllersocio">
 				<fieldset id="datosAutor">
 					<legend><img src="${pageContext.request.contextPath}/resources/img/azarquiel.gif">&nbsp;Nuevo Autor</legend>
 					<div class="etiquetas">
@@ -42,7 +34,7 @@
 					<div class="campos">
 						<input type="text" id="nombre" name="nombre"> 
 						<input name="operacion" type="hidden" id="operacion"
-							value="insertaautor">
+							value="busquedaautor">
 					</div>
 					<div class="cb"></div>
 					<div class="cb"></div>
@@ -52,6 +44,23 @@
 				</fieldset>
 			</form>
 		</div>
+                <c:if test="${not empty listadoautores}">
+                    <div id="tabla">
+                            <table class="table tablaconborde tablacebra">
+                                    <caption>Listado de Autores</caption>
+                                    <tr>
+                                            <th scope="col">CODIGO</th>
+                                            <th scope="col">NOMBRE</th>
+                                    </tr>
+                                    <c:forEach items="${listadoautores}" var="autor">
+                                                    <tr>
+                                                    <td class="txtderecha">${autor.id}</td>
+                                                    <td>${autor.nombre}</td>
+                                            </tr>
+                                    </c:forEach>
+                            </table>
+                    </div>
+                </c:if>	
 		<div id="separacion">
 			<br>
 		</div>

@@ -61,4 +61,15 @@ public class DaoLibro {
             throw ex;
         }
     }
+    public List findByTituloLike(String titulo) {
+        List<Libro> listaLibro;
+        try{
+            listaLibro = dao.getEm().createNamedQuery("Libro.findByTituloLike", Libro.class)
+                                    .setParameter("titulo", "%"+titulo+"%")
+                                    .getResultList();
+        } catch (Exception ex){
+            throw ex;
+        }
+        return listaLibro;
+    }
 }

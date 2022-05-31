@@ -145,6 +145,30 @@ public class ControllerSocio extends HttpServlet {
                     procesarError(request, response, e);
                 }
                 break;
+            case "busquedaautor":
+                dao = new Dao();
+                String nombreAutor = request.getParameter("nombre");
+                daoautor = new DaoAutor(dao);
+                try{
+                    List<Autor> listaautor = daoautor.findByNombreLike(nombreAutor);
+                    request.setAttribute("listadoautores", listaautor);
+                    request.getRequestDispatcher("/socios/busquedaautor.jsp").forward(request, response);
+                }catch (Exception e){
+                    procesarError(request, response, e);
+                }
+                break;
+            case "busquedalibro":
+                dao = new Dao();
+                String tituloLibro = request.getParameter("titulo");
+                daolibro = new DaoLibro(dao);
+                try{
+                    List<Autor> listalibros = daolibro.findByTituloLike(tituloLibro);
+                    request.setAttribute("listadolibros", listalibros);
+                    request.getRequestDispatcher("/socios/busquedalibro.jsp").forward(request, response);
+                }catch (Exception e){
+                    procesarError(request, response, e);
+                }
+                break;
             case "logout":
                 HttpSession sesion = request.getSession();
                 sesion.invalidate();

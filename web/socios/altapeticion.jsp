@@ -37,7 +37,7 @@
 			<form name="formRegistroAutomaticoLibro" method="get"
 				action="${pageContext.request.contextPath}/controllersocio">
 				<fieldset id="datosPrestamo">
-					<legend><img src="resources/img/azarquiel.gif">&nbsp;Alta Préstamo</legend>
+					<legend><img src="${pageContext.request.contextPath}/resources/img/azarquiel.gif">&nbsp;Alta Préstamo</legend>
 					<div class="etiquetas">
 						<label for="emailsocio">Email Socio:</label>
 					</div>

@@ -31,7 +31,7 @@
 				action="${pageContext.request.contextPath}/controller_sinvalidacioncorreo">
 				<fieldset id="datosSocio">
 					<legend>
-						<img src="resources/img/azarquiel.gif">&nbsp;Nuevo Socio
+						<img src="${pageContext.request.contextPath}/resources/img/azarquiel.gif">&nbsp;Nuevo Socio
 					</legend>
 					<div class="etiquetas">
 						<label for="nombre">Nombre:</label>
