@@ -5,6 +5,7 @@
 package dao;
 
 import entidades.Prestamo;
+import java.util.List;
 
 /**
  *
@@ -27,5 +28,9 @@ public class DaoPrestamo {
         }
         
         
+    }
+    
+    public List listAll() throws Exception{
+        return dao.getEm().createNamedQuery("Prestamo.findAll", Prestamo.class).getResultList();
     }
 }

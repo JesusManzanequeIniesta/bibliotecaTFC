@@ -8,12 +8,7 @@
 				<li><a
 					href="${pageContext.request.contextPath}/admin/modificaautor.jsp">Modifica
 						Autor </a></li>
-			</c:if>
-				<li><a
-					href="${pageContext.request.contextPath}/controller?operacion=listarAutores">Listado
-						de Autores</a></li>
-                                <li><a
-					href="${pageContext.request.contextPath}/socios/busquedaautor.jsp">Buscar Autor</a></li>
+                        </c:if>
 			<c:if test="<%=request.isUserInRole("socios")%>">
 				<li><a
 					href="${pageContext.request.contextPath}/controllersocio?operacion=listarAutores">Listado
@@ -49,6 +44,15 @@
 						Devolucion </a></li>
                                 <li><a
 					href="${pageContext.request.contextPath}/socios/altapeticion.jsp">Hacer Peticion</a></li>
+                                <li><a
+					href="${pageContext.request.contextPath}/controlleradmin?operacion=listarPrestamos">Listado
+						de Prestamos</a></li>
+                                <li><a
+					href="${pageContext.request.contextPath}/controlleradmin?operacion=listarPeticiones">Listado
+						de Peticiones</a></li>
+                                <li><a
+					href="${pageContext.request.contextPath}/admin/busquedapeticionlibro.jsp">Busqueda
+                                                de Peticiones por Libro</a></li>
 			</c:if>	
                         <c:if test="<%=request.isUserInRole("socios")%>">
 				<li><a

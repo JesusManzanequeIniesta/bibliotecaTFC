@@ -90,7 +90,7 @@ public class Tools {
 	// Validación de captcha de Google
 	public static boolean validarCaptcha(String gRecaptchaResponse)  {
 		// Poner la clave secreta obtenida al dar de alta el Captcha en Google
-		String secret="6LdMoW8dAAAAAPPOnatoxfIWMfbbLpAQNaGloV6P";
+		String secret="6LcxSDwgAAAAAE0Yeo-mhwc7vzOAhuz243jI4Gc5";
 		String urlCaptcha = "https://www.google.com/recaptcha/api/siteverify?secret="+secret+"&response="+ gRecaptchaResponse;
 		if (gRecaptchaResponse == null || "".equals(gRecaptchaResponse)) {
 			return false;
@@ -167,7 +167,7 @@ public class Tools {
 	}
 	
 	public static String creaCuerpoCorreo(String token) {
-		String ref="http://localhost:8080/biblioteca/controller?operacion=validacion&token="+token;
+		String ref="http://biblioteca.s2dawg3.com/biblioteca/controller?operacion=validacion&token="+token;
 		StringBuilder st=new StringBuilder();
 		st.append("<!DOCTYPE html>");
 		st.append("<html lang='es'>");

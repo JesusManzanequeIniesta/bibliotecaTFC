@@ -28,7 +28,7 @@
 		</c:if>
 		<div id="divAltaSocio" class="formulariogeneral">
 			<form name="frmSocio" method="post" id="frmSocio"
-				action="${pageContext.request.contextPath}/controller_sinvalidacioncorreo">
+				action="${pageContext.request.contextPath}/controller">
 				<fieldset id="datosSocio">
 					<legend>
 						<img src="${pageContext.request.contextPath}/resources/img/azarquiel.gif">&nbsp;Nuevo Socio
@@ -45,12 +45,6 @@
 					<div class="campos">
 						<input type="email" id="email" name="email" required/>
 					</div>
-                                        <div class="etiquetas">
-						<label for="clave">Clave:</label>
-					</div>
-					<div class="campos">
-						<input type="text" id="password" name="password" required/>
-					</div>
 					<div class="etiquetas">
 						<label for="direccion">Teléfono móvil español:</label>
 					</div>
@@ -61,7 +55,7 @@
 					</div>
 					<div class="cb"></div>
 					<div class="botones">
-						<button class="g-recaptcha" data-sitekey="6LdMoW8dAAAAABGkv1R5SdopL17FMcmsfQ2VqVdw" 
+						<button class="g-recaptcha" data-sitekey="6LcxSDwgAAAAAOlssLsf8_i3FWobCIpaSHpGK86o" 
 						data-callback="onSubmit">Alta</button>
 					</div>
 				</fieldset>

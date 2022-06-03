@@ -4,7 +4,9 @@
  */
 package dao;
 
+import entidades.Libro;
 import entidades.Peticion;
+import java.util.List;
 
 /**
  *
@@ -24,5 +26,14 @@ public class DaoPeticion {
         } catch (Exception ex) {
             throw ex;
         }
+    }
+    
+    public List listAll() throws Exception{
+        return dao.getEm().createNamedQuery("Peticion.findAll", Peticion.class).getResultList();
+    }
+    public List listByLibro(Libro libro) throws Exception{
+        return dao.getEm().createNamedQuery("Peticion.findByLibro", Peticion.class)
+                          .setParameter("libro", libro)
+                          .getResultList();
     }
 }

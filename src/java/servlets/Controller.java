@@ -18,6 +18,7 @@ import org.json.JSONObject;
 import dao.*;
 import entidades.*;
 import excepciones.BibliotecaException;
+import java.security.MessageDigest;
 import java.util.List;
 import tools.GoogleBooks;
 import tools.Tools;
@@ -90,7 +91,7 @@ public class Controller extends HttpServlet {
 		DaoUsuarios daousuarios;
 		DaoAutor daoautor;
 		DaoGrupos daogrupos;
-		//DaoToken daotoken; preguntar a Julio
+		DaoToken daotoken;
 		// >>>> modificar para que ante excepcion se cierre
 		// dao con rollback
 		switch (operacion) {
@@ -103,7 +104,7 @@ public class Controller extends HttpServlet {
 				request.setAttribute("listadoautores", listadoautores);
 				request.getRequestDispatcher("/socios/listadoautores.jsp").forward(request, response);
 			} catch (Exception e) {	procesarError(request, response, e);}
-			break;
+		break;
 		case "registrarse":
 			String nombre = request.getParameter("nombre");
 			String email = request.getParameter("email");
@@ -131,17 +132,17 @@ public class Controller extends HttpServlet {
 					socio.setTelefono(telefono);
 					daosocio.create(socio);
 					// Creo un token de validación de email y telefono
-//					Token token=new Token();
-//					token.setEmail(email);
-//					token.setTelefono(telefono);
+					Token token=new Token();
+					token.setEmail(email);
+					token.setTelefono(telefono);
 //					// Genero un token aleatorio
-//					token.setValue(Tools.generaToken());
-//					daotoken = new DaoToken(dao);
-//					daotoken.inserta(token);
+					token.setValue(Tools.generaToken());
+					daotoken = new DaoToken(dao);
+					daotoken.inserta(token);
 					// Envío correo de validación
-//					String asunto="Validación en correo registro aplicación biblioteca";
-//					String cuerpo=Tools.creaCuerpoCorreo(token.getValue());
-//					Tools.enviarConGMail(email,asunto,cuerpo);
+					String asunto="Validación en correo registro aplicación biblioteca";
+					String cuerpo=Tools.creaCuerpoCorreo(token.getValue());
+					Tools.enviarConGMail(email,asunto,cuerpo);
 					dao.close();
 					request.setAttribute("socio", socio);
 					request.getRequestDispatcher("/socioregistrado.jsp").forward(request, response);
@@ -154,27 +155,48 @@ public class Controller extends HttpServlet {
 			String value = request.getParameter("token");
 			try {
 				dao=new Dao();
-//				daotoken = new DaoToken(dao);
-//				Token token = daotoken.findByValue(value);
-//				if (token==null) throw new BibliotecaException("token no encontrado",8);
+				daotoken = new DaoToken(dao);
+				Token token = daotoken.findByValue(value);
+				if (token==null) throw new BibliotecaException("token no encontrado",8);
 				// >> Tendría que mirar si está caducado
 				daousuarios = new DaoUsuarios(dao);
 				Usuarios usuario=new Usuarios();
-//				usuario.setUsuario(token.getEmail());
+				usuario.setUsuario(token.getEmail());
 				String clave=Tools.generaClave();
-				usuario.setClave(clave);
-//				Tools.enviarSMS(token.getTelefono(),"La contraseña de acceso es"+clave);
+                                //Pasamos la clave a MD5 antes de insertarla. Código de howtodoinjava.com
+
+                                // Create MessageDigest instance for MD5
+                                MessageDigest md = MessageDigest.getInstance("MD5");
+
+                                // Add password bytes to digest
+                                md.update(clave.getBytes());
+
+                                // Get the hash's bytes
+                                byte[] bytes = md.digest();
+
+                                // This bytes[] has bytes in decimal format. Convert it to hexadecimal format
+                                StringBuilder sb = new StringBuilder();
+                                for (int i = 0; i < bytes.length; i++) {
+                                    sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+                                }
+                                        
+//                              Fin paso a MD5
+				usuario.setClave(sb.toString());
+				Tools.enviarSMS(token.getTelefono(),"La contraseña de acceso es"+clave);
 //				// Borro el token después de usarlo
-//				daotoken.borra(token);
-//				daousuarios.inserta(usuario);
-//				daogrupos = new DaoGrupos(dao);
-//				Grupos grupo = new Grupos();
-//				grupo.setIdusuario(usuario.getUsuario());
-//				// El nombre del role 
-//				grupo.setIdgrupo(ROLESOCIOS);
-//				daogrupos.inserta(grupo);	
-				dao.close();
-//				request.setAttribute("token", token);
+				daotoken.borra(token);
+                                daousuarios.create(usuario);
+				daogrupos = new DaoGrupos(dao);
+				Grupos grupo = new Grupos();
+//				El nombre del role 
+                                GruposPK grupoPK = new GruposPK();
+                                grupoPK.setIdgrupo(ROLESOCIOS);
+                                grupoPK.setIdusuario(usuario.getUsuario());
+                                grupo.setGruposPK(grupoPK);
+                                daogrupos.create(grupo);
+                                usuario.getGruposList().add(grupo);
+                                dao.close();
+				request.setAttribute("token", token);
 				request.getRequestDispatcher("/validacionOK.jsp").forward(request, response);
 			}
 			catch (SQLException e) {procesarErrorSQL(request, response, e);} 

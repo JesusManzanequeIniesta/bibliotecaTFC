@@ -95,6 +95,7 @@ public class ControllerAdmin extends HttpServlet {
         DaoSocio daosocio;
         DaoPrestamo daoprestamo;
         DaoTipoSancion daotiposancion;
+        DaoPeticion daopeticion;
         // >>>> modificar para que ante excepcion se cierre
         // dao con rollback
         switch (operacion) {
@@ -152,6 +153,8 @@ public class ControllerAdmin extends HttpServlet {
                     Ejemplar ejemplar = new Ejemplar();
                     ejemplar.setLibroId(libro);
                     ejemplar.setFechaalta(LocalDate.now());
+                    ejemplar.setCalculadoPrestable(true);
+                    ejemplar.setCalculadoPrestado(false);
                     daoestado = new DaoEstado(dao);
                     ejemplar.setEstadoId(daoestado.findById(1));
                     ejemplar.setLibroId(libro);
@@ -166,7 +169,7 @@ public class ControllerAdmin extends HttpServlet {
                     String ruta = getServletConfig().getServletContext().getRealPath("/generados");
                     // Genero el pdf en generados
                     String file = Tools.creaFicheroPDF(ruta + "/", "Ejemplar", ejemplar.getCodbarras());
-//				request.setAttribute("error",file);
+                    //request.setAttribute("error",file);
                     request.getRequestDispatcher("/admin/registroautomaticolibro.jsp").forward(request, response);
                 } catch (Exception e) {
                     procesarError(request, response, e);
@@ -376,6 +379,7 @@ public class ControllerAdmin extends HttpServlet {
                                         p.setTiposancionId(ts);
                                         p.setFechadevolucion(LocalDate.now());
                                         p.getEjemplarId().setCalculadoPrestado(false);
+                                        p.getEjemplarId().setCalculadoPrestable(false);
                                         p.setCalculadoActivo(false);
                                         p.setTiposancionId(ts);
                                         
@@ -429,6 +433,46 @@ public class ControllerAdmin extends HttpServlet {
                     procesarError(request, response, e);
                 }
                 break;
+            case "listarPeticiones":
+                try {
+                    dao = new Dao();
+                    daopeticion = new DaoPeticion(dao);
+                    List<Peticion> listadopeticion = daopeticion.listAll();
+                    dao.close();
+                    request.setAttribute("listadopeticiones", listadopeticion);
+                    request.getRequestDispatcher("/admin/listadopeticiones.jsp").forward(request, response);
+                } catch (Exception e) {
+                    procesarError(request, response, e);
+                }
+            break;
+            case "listarPrestamos":
+                try {
+                    dao = new Dao();
+                    daoprestamo = new DaoPrestamo(dao);
+                    List<Prestamo> listadoprestamo = daoprestamo.listAll();
+                    dao.close();
+                    request.setAttribute("listadoprestamos", listadoprestamo);
+                    request.getRequestDispatcher("/admin/listadoprestamos.jsp").forward(request, response);
+                } catch (Exception e) {
+                    procesarError(request, response, e);
+                }
+            break;
+            case "busquedapeticionlibro":
+                try {
+                    dao = new Dao();
+                    daopeticion = new DaoPeticion(dao);
+                    daolibro = new DaoLibro(dao);
+                    String tituloLibro = request.getParameter("titulolibro");
+                    Libro libro = daolibro.findByTitulo(tituloLibro);
+                    List<Peticion> listadopeticion = daopeticion.listByLibro(libro);
+                    dao.close();
+                    request.setAttribute("listadopeticiones", listadopeticion);
+                    request.getRequestDispatcher("/admin/busquedapeticionlibro.jsp").forward(request, response);
+                } catch (Exception e) {
+                    procesarError(request, response, e);
+                }
+
+            break;
             case "logout":
                 HttpSession sesion = request.getSession();
                 sesion.invalidate();
