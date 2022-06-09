@@ -5,9 +5,11 @@
 				<li><a
 					href="${pageContext.request.contextPath}/admin/altaautor.jsp">Nuevo
 						Autor </a></li>
-				<li><a
-					href="${pageContext.request.contextPath}/admin/modificaautor.jsp">Modifica
-						Autor </a></li>
+                                <li><a
+					href="${pageContext.request.contextPath}/controllersocio?operacion=listarAutores">Listado
+						de Autores</a></li>
+                                <li><a
+					href="${pageContext.request.contextPath}/socios/busquedaautor.jsp">Buscar Autor</a></li>
                         </c:if>
 			<c:if test="<%=request.isUserInRole("socios")%>">
 				<li><a

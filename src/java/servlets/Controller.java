@@ -182,7 +182,7 @@ public class Controller extends HttpServlet {
                                         
 //                              Fin paso a MD5
 				usuario.setClave(sb.toString());
-				Tools.enviarSMS(token.getTelefono(),"La contraseña de acceso es"+clave);
+				Tools.enviarSMS(token.getTelefono(),"La contraseña de acceso es "+clave);
 //				// Borro el token después de usarlo
 				daotoken.borra(token);
                                 daousuarios.create(usuario);

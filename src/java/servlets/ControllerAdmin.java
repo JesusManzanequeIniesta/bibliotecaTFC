@@ -1,5 +1,6 @@
 package servlets;
 
+import dao.DaoTipoSancion;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -237,9 +238,15 @@ public class ControllerAdmin extends HttpServlet {
                     if(socio == null){
                         throw new BibliotecaException("El socio no existe en la base de datos.", 2);
                     }
+                    if(socio.getCalculadoSancionado() == true){
+                        throw new BibliotecaException("El socio está sancionado", 8);
+                    }
                     ejemplar = daoejemplar.findByCodBarras(codBarrasEjemplar);
                     if(ejemplar == null){
                         throw new BibliotecaException("El ejemplar no existe", 3);
+                    }
+                    if(ejemplar.getCalculadoPrestado() == true || ejemplar.getCalculadoPrestable() == false){
+                        throw new BibliotecaException("El ejemplar está prestado", 9);
                     }
                     
                     prestamo.setSocioId(socio);
