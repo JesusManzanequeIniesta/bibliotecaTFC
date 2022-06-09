@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title> Alta de Libro </title>
+<title> Alta de Préstamo </title>
 <jsp:directive.include file="../includes/includefile.jspf" />
 </head>
 <body>
@@ -37,7 +37,7 @@
 			<form name="formRegistroAutomaticoLibro" method="get"
 				action="${pageContext.request.contextPath}/controlleradmin">
 				<fieldset id="datosPrestamo">
-					<legend><img src="resources/img/azarquiel.gif">&nbsp;Alta Préstamo</legend>
+					<legend><img src="${pageContext.request.contextPath}/resources/img/azarquiel.gif">&nbsp;Alta Préstamo</legend>
 					<div class="etiquetas">
 						<label for="codBarrasSocio">CodBarras Socio:</label>
 					</div>
