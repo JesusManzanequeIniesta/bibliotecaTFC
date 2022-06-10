@@ -167,7 +167,7 @@ public class Tools {
 	}
 	
 	public static String creaCuerpoCorreo(String token) {
-		String ref="http://biblioteca.s2dawg3.com/biblioteca/controller?operacion=validacion&token="+token;
+		String ref="http://biblioteca.s2dawg3.com:8080/biblioteca/controller?operacion=validacion&token="+token;
 		StringBuilder st=new StringBuilder();
 		st.append("<!DOCTYPE html>");
 		st.append("<html lang='es'>");
